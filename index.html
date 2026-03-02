@@ -1,0 +1,2147 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>THE GAFFER</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
+<style>
+/* --- VARIABILI GLOBALI --- */
+:root{
+  --bg1:#0f0736; 
+  --bg2:#2a0533;
+  --accent1:#7c3aed; /* Viola Chiaro */
+  --accent2:#d400ff; /* Viola acceso */
+  --accent3:#ffcc00; /* Giallo acceso (Successo/Highlights) */
+  --glass: rgba(255,255,255,0.04);
+  --card-shadow: 0 8px 30px rgba(0,0,0,0.45);
+  --muted: rgba(255,255,255,0.7);
+  --maxw:420px;
+  --neon-green: #00ff6a; /* Vittoria */
+  --neon-red: #ff3f3f; /* Sconfitta */
+  --navy: #0d47a1; /* Blu Scuro per elementi bianchi */
+  --dark-purple: #1e0544; /* Sfondo dashboard */
+}
+/* --- RESET E BASE (SFONDO TRASPARENTE) --- */
+*{box-sizing:border-box;font-family:'Poppins',sans-serif}
+/* IMPOSTA LO SFONDO SU TRASPARENTE PER TUTTO IL CORPO */
+html,body{height:100%;margin:0;
+    background: transparent; /* AGGIUNTO */
+    color:#fff;-webkit-font-smoothing:antialiased;
+}
+.container{max-width:var(--maxw);margin:18px auto;padding:12px;} 
+/* Nota: La classe .container rimane immutata */
+
+}
+.container{max-width:var(--maxw);margin:18px auto;padding:12px;}
+.hidden{display:none}
+
+/* --- TITOLO EFFETTO CIRCUO --- */
+.hdr-home {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; margin-bottom: 20px; margin-top: 20px; overflow: visible; padding-bottom: 8px;
+}
+.title-circus {
+  font-family: 'Cinzel Decorative', cursive; font-size: 42px; font-weight: 900; letter-spacing: 2px;
+  /* Gradiente Neon */
+  background: linear-gradient(90deg,#ffcc00,#ff3f3f,#7c3aed,#00ff6a,#ffd166);
+  background-size: 300% 100%; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  animation: circusColors 3s ease-in-out infinite; display: inline-block; line-height: 1.2;
+  text-shadow: 0 0 10px rgba(255,204,0,0.5); 
+}
+.subtitle{font-size:12px; font-weight:600; color:var(--accent1); margin-top:-8px;}
+@keyframes circusColors{
+  0% { background-position:0% 50%; } 25% { background-position:50% 50%; }
+  50% { background-position:100% 50%; } 75% { background-position:50% 50%; }
+  100% { background-position:0% 50%; }
+}
+
+/* --- CARD E BOTTONI --- */
+.card{
+    /* Glassmorphism (semi-trasparente) */
+    background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01)); 
+    padding:15px;border-radius:12px;
+    box-shadow:var(--card-shadow);
+    border:1px solid rgba(255,255,255,0.05); /* Bordo sottile */
+    margin-bottom:15px; 
+    backdrop-filter: blur(8px);
+    transition: box-shadow 0.3s;
+}
+.card.white{background:#fff;color:#081022; border-color: rgba(0,0,0,0.1);}
+.row{display:flex;gap:8px;align-items:center}
+.small{font-size:13px;color:var(--muted)}
+.input{width:100%;padding:12px;border-radius:8px;border:none;background:rgba(255,255,255,0.1);color:#fff;outline:none;border:1px solid rgba(255,255,255,0.15); transition:border-color 0.2s;}
+.input:focus{border-color:var(--accent3); box-shadow: 0 0 5px rgba(255,204,0,0.5);}
+.btn{flex:1;padding:12px;border-radius:10px;border:0;font-weight:800;cursor:pointer;text-align:center;transition:transform 0.1s, opacity 0.1s}
+.btn:active{transform:scale(0.98);}
+.btn:disabled{opacity:0.6; cursor:not-allowed;}
+.btn-primary{background:linear-gradient(90deg,var(--accent3),#ffd166);color:#001; text-shadow: 0 0 2px rgba(255,255,255,0.5);}
+.btn-ghost{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);color:#fff}
+.btn-sm{padding:10px;font-size:12px}
+.btn-success{background-color: var(--neon-green); color:#001;}
+
+/* /* ================================================================= */
+/* 🔥 PULSANTI DI AZIONE PRINCIPALI - GLASSMORFISM SOLIDO "MOBILE VIVID" */
+/* ================================================================= */
+
+/* Contenitore */
+.play-btn-group {
+    display:flex; 
+    gap:12px; 
+    margin-bottom:12px;
+}
+
+/* 🎨 STILE BASE (No Blur, Gradiente Solido, Bordo Light) */
+.play-btn{
+    flex:1; 
+    padding:12px;
+    border-radius:12px;
+    border:0;
+    font-weight:900;
+    cursor:pointer;
+    text-align:center; 
+    transition:transform 0.1s, box-shadow 0.2s; 
+    
+    /* GLASSMORFISM CORE */
+    color: #fff !important; 
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    
+    border: 1px solid rgba(255, 255, 255, 0.4); 
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6); 
+    font-size: 12px; 
+    
+    background: linear-gradient(135deg, rgba(50,50,50,1) 0%, rgba(30,30,30,1) 100%); 
+}
+
+/* Stato di Click/Tocco */
+.play-btn:active{
+    transform:scale(.98);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.8); 
+}
+
+/* --- COLORI COORDINATI CON L'ORO (Moderni e Vibranti) --- */
+
+/* 🥇 Pulsante Primario (CLASSIFICA) - Mantenuto: Oro Caldo Brillante */
+.play-btn.action-primary {
+    background: linear-gradient(135deg, #FFEA00 0%, #FFC107 100%); 
+    box-shadow: 0 4px 25px rgba(255, 218, 0, 0.9); 
+    color: #333 !important; /* Testo Scuro */
+}
+
+/* 💠 Pulsante Secondario (Sfida P2P) - NOVITÀ: Ciano Elettrico/Acqua */
+.play-btn.action-secondary {
+    background: linear-gradient(135deg, #00FFFF 0%, #008B8B 100%); /* Ciano brillante a Dark Cyan */
+    box-shadow: 0 4px 25px rgba(0, 255, 255, 0.6); /* Ombra Ciano luminoso */
+    color: #fff !important; 
+}
+
+/* 🟣 Pulsante Terziario - NOVITÀ: Viola Profondo/Magenta */
+.play-btn.action-tertiary { 
+    background: linear-gradient(135deg, #FF00FF 0%, #800080 100%); /* Magenta Fluo a Viola Profondo */
+    box-shadow: 0 4px 25px rgba(255, 0, 255, 0.6); /* Ombra Magenta */
+    color: #fff !important; 
+}
+
+/* ⚫ Pulsante Default - NOVITÀ: Nero/Antracite Profondo */
+.play-btn.action-default {
+    background: linear-gradient(135deg, #2C3E50 0%, #000000 100%); /* Grigio Antracite a Nero */
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.8); /* Ombra Nera molto marcata */
+    color: #fff !important; 
+}
+
+
+
+
+/* --- GRID SELEZIONE (4 colonne) --- */
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.team-box{background:#fff;border-radius:10px;padding:6px 4px;text-align:center;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;border:2px solid transparent;transition:all .2s;}
+.team-box img{width:32px;height:32px;object-fit:contain;background:#fff;border-radius:6px;padding:2px;box-shadow:0 1px 3px rgba(0,0,0,0.1)}
+.team-name{font-weight:800;color:#081022;font-size:10px;line-height:1}
+.team-box-info{font-size:8px; color:#555; font-weight: 500; display: flex; flex-direction: column; gap: 1px;} 
+.team-box-info div { line-height: 1; } 
+.team-box.selected{border-color:var(--accent1);animation: teamSelectPop 0.28s ease-out;box-shadow:0 0 12px rgba(124,58,237,0.55); background: #f0f0ff;}
+@keyframes teamSelectPop { 0%   { transform:scale(1); box-shadow:none; } 40%  { transform:scale(1.1); box-shadow:0 0 18px rgba(124,58,237,0.8); } 100% { transform:scale(1); }}
+
+/* 📱 REGOLE MOBILE */
+@media (max-width:420px){ 
+  .container{padding:10px} 
+  
+  /* Forza 4 colonne su schermi piccoli */
+  .grid{grid-template-columns:repeat(4,1fr)} 
+  
+  /* Forza il logo a 32x32 */
+  .team-box img{width:32px;height:32px} 
+  
+  /* Riduci aggressivamente padding e font per far entrare 4 box */
+  .team-box{padding: 2px 1px;} /* Ulteriore riduzione del padding orizzontale */
+  
+  /* Riduci la dimensione del font del team name */
+  .team-name{font-size: 8px; line-height: 1;} 
+  
+  /* Riduci la dimensione del font delle info (Forza/Costo) */
+  .team-box-info{font-size: 6px; gap: 0px;} 
+}
+
+
+
+/* --- MATCH UI --- */
+.card-squadre{display:flex;gap:10px;justify-content:center;align-items:flex-start}
+.card.white.match-card{min-width:140px;max-width:160px;height:120px;padding:10px;display:flex;flex-direction:column;align-items:center;justify-content:center; border: 1px solid rgba(0,0,0,0.15);}
+.card.white.match-card img{width:40px;height:40px;object-fit:contain;border-radius:6px;background:#fff;padding:2px;box-shadow:0 2px 5px rgba(0,0,0,0.2);}
+#logoAvv { display: none; }
+.score{font-size:40px;font-family: 'Cinzel Decorative', cursive; font-weight:900;transition:all .6s; line-height: 1.2;}
+.result-win{color:var(--neon-green); animation:winEffect 1s ease;}
+.result-draw{color:var(--accent3)}
+.result-lose{color:var(--neon-red); animation:shake 0.6s;}
+@keyframes winEffect{0%{transform:scale(1)}50%{transform:scale(1.25)}100%{transform:scale(1)}}
+@keyframes shake{0%{transform:translateX(0)}25%{transform:translateX(-8px)}50%{transform:translateX(8px)}75%{transform:translateX(-8px)}100%{transform:translateX(0)}}
+
+/* PULSANTI PRONOSTICO */
+.pronostico-container { margin-top: 15px; }
+.pronostico-btn-group { display: flex; gap: 10px; justify-content: center; }
+.pronostico-btn-group button { 
+    flex: 1; border: 2px solid rgba(255,255,255,0.2); transition: all 0.2s;
+    background: rgba(0,0,0,0.1); color: #fff;
+    font-weight: 700; padding: 10px; border-radius: 8px;
+}
+.pronostico-btn-group button.btn-primary { 
+    border-color: var(--neon-green); 
+    background: rgba(0,255,106,0.2);
+    box-shadow: 0 0 10px rgba(0,255,106,0.5);
+    color: #fff;
+}
+.pronostico-btn-group button#btnSlotLose.btn-primary {
+    border-color: var(--neon-red);
+    background: rgba(255,63,63,0.2);
+    box-shadow: 0 0 10px rgba(255,63,63,0.5);
+    color: #fff;
+}
+
+/* SELEZIONE CALCIATORE */
+#calciatoriContainer {
+    margin-top: 15px; padding: 12px; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;
+    background: rgba(0,0,0,0.2);
+}
+.calciatore-select {
+    width: 100%; padding: 12px; border-radius: 8px; border: none; 
+    background: rgba(255,255,255,0.08); color: #fff; outline: none;
+    appearance: none; /* Rimuove lo stile nativo */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="rgba(255,255,255,0.8)" d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px top 50%;
+}
+.calciatore-select option {
+    background: var(--bg1); color: #fff;
+}
+.calciatore-select:disabled {
+    opacity: 0.7;
+}
+
+
+/* --- CLASSIFICA --- */
+.class-row {
+  display: flex; align-items: center; justify-content: space-between; padding: 10px 12px;
+  border-radius: 8px; margin-bottom: 8px; background: #ffffff; color: var(--navy); 
+  font-size: 12px; font-weight:600;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.1s;
+}
+.class-row:hover { transform: translateY(-1px); }
+.class-row .rank { 
+    font-family: 'Cinzel Decorative', cursive; font-weight: 900; margin-right: 15px; 
+    min-width: 30px; text-align: left; font-size: 16px; 
+}
+.class-row .team-name-cl { flex-grow: 1; }
+.class-row .points { font-size: 13px; color: #555; text-align: right; }
+.class-row .points strong { font-size: 18px; color: var(--navy); margin-right: 5px; }
+
+/* Stile per la riga del giocatore stesso */
+.self-row { 
+    background: var(--dark-purple); 
+    color: #fff; 
+    border: 2px solid var(--neon-green);
+    box-shadow: 0 0 10px rgba(0,255,106,0.5);
+}
+.self-row .points, .self-row .rank { color: #fff !important; }
+.self-row .points strong { color: var(--neon-green); }
+
+/* --- COLORI FLUO PER LE PRIME TRE POSIZIONI --- */
+.first-place, .second-place, .third-place {
+  font-weight: 900; 
+}
+
+/* 🥇 1° Posto: Giallo Fluo */
+.first-place { 
+    color: #CCFF00; /* Giallo Fluo */
+    text-shadow: 0 0 8px rgba(204, 255, 0, 0.8); 
+    animation: blink 1s linear infinite; 
+}
+
+/* 🥈 2° Posto: Fucsia Fluo */
+.second-place { 
+    color: #FF00FF; /* Fucsia Fluo */ 
+    text-shadow: 0 0 5px rgba(255, 0, 255, 0.5); 
+}
+
+/* 🥉 3° Posto: Ciano Fluo */
+.third-place { 
+    color: #00FFFF; /* Ciano Fluo */ 
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.5); 
+}
+
+@keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.8; } 100% { opacity: 1; }}
+
+
+/* --- STORICO PARTITE --- */
+.history-row {
+  display: grid; grid-template-columns: 1fr 2fr 1.2fr; gap: 10px; padding: 10px 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 12px;
+}
+.history-header {
+  font-weight: 800; color: var(--accent3); padding-bottom: 5px; border-bottom: 2px solid var(--accent3);
+}
+.history-row:last-child { border-bottom: none; }
+.history-result { font-weight: 700; text-align: right; }
+
+/* --- DASHBOARD FIX E MERCATO --- */
+#page-dashboard {
+  position: relative; 
+  padding-top: 30px;
+}
+.market-box{
+  position: absolute; right: 10px; top: -10px;
+  width: 80px; height: 80px; border-radius: 50%;
+  background: linear-gradient(145deg, var(--accent3), #ff9900); font-size:30px; 
+  display:flex; flex-direction: column; align-items:center; justify-content:center;
+  cursor:pointer; box-shadow: 0 0 15px rgba(255,200,0,0.6); animation: floatGift 3s ease-in-out infinite;
+  z-index: 99999; pointer-events: auto; transform: translate3d(0, 0, 0); line-height: 1; color: #000;
+  border: 4px solid #fff;
+}
+.market-box .cost{
+  font-size: 12px; font-weight: 900; margin-top: 2px; text-shadow: 0 0 2px #fff;
+}
+.market-box.can-buy{ background: linear-gradient(145deg, var(--neon-green), #00a046); box-shadow: 0 0 20px rgba(0,255,106,0.8); color: #000; }
+.market-box.can-buy .cost { color: #000; text-shadow: 0 0 2px #fff; }
+.market-box:active { 
+  transform: scale(0.95) translate3d(0, 0, 0) !important; box-shadow: 0 0 10px rgba(255,200,0,1);
+}
+@keyframes floatGift{
+  0%{transform:translate3d(0, 0, 0) rotate(-3deg);} 25%{transform:translate3d(0, -5px, 0) rotate(3deg);}
+  50%{transform:translate3d(0, 0, 0) rotate(-3deg);} 75%{transform:translate3d(0, -5px, 0) rotate(3deg);}
+  100%{transform:translate3d(0, 0, 0) rotate(-3deg);}
+}
+/* Stili per l'animazione di Confetti */
+.confetti {
+  position: absolute; width: 8px; height: 8px; border-radius: 50%; pointer-events: none;
+  animation: fall 2s linear forwards; z-index: 999;
+}
+@keyframes fall {
+  0% { transform: translateY(0) rotate(0deg); opacity:1; } 100% { transform: translateY(300px) rotate(360deg); opacity:0; }
+}
+
+/* NUOVI STILI PER DASHBOARD INFO (Migliorata) */
+.dash-info-grid {
+    display: flex; justify-content: space-around; margin-top: 15px; padding: 10px 0; border-radius: 10px;
+    background: rgba(0,0,0,0.3); 
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
+}
+.dash-item { 
+    text-align: center; 
+    padding: 5px;
+    flex: 1;
+    border-right: 1px solid rgba(255,255,255,0.08);
+}
+.dash-item:last-child { border-right: none; }
+
+.dash-item .value { 
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 24px; /* Aumentato */
+    font-weight: 700; 
+    line-height: 1.2;
+    text-shadow: 0 0 5px rgba(255,255,255,0.2);
+}
+.dash-item .label { 
+    font-size: 10px; 
+    color: var(--muted); 
+    text-transform: uppercase;
+    font-weight: 300;
+}
+
+/* ANIMAZIONI DI CAMBIO VALORE */
+.force-change-positive { color: var(--neon-green) !important; animation: pulseGreen 0.5s 3; }
+.force-change-negative { color: var(--neon-red) !important; animation: pulseRed 0.5s 3; }
+
+@keyframes pulseGreen { 
+    0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.1); opacity: 0.8; text-shadow: 0 0 10px var(--neon-green); } 100% { transform: scale(1); opacity: 1; }
+}
+@keyframes pulseRed { 
+    0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.1); opacity: 0.8; text-shadow: 0 0 10px var(--neon-red); } 100% { transform: scale(1); opacity: 1; }
+}
+
+/* BONUS PANEL */
+.bonus-panel {
+    background: rgba(0,0,0,0.2); 
+    padding: 12px; 
+    border-radius: 8px; 
+    margin-top: 20px;
+    border: 1px solid rgba(124,58,237,0.2);
+    box-shadow: 0 0 10px rgba(124,58,237,0.1);
+}
+.bonus-panel .bonus-squadra { 
+    display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px;
+    border-bottom: 1px dashed rgba(255,255,255,0.1);
+}
+.bonus-panel .bonus-squadra:last-child { border-bottom: none; }
+
+/* MERCATO CONFERMA */
+#marketConfirmation button {
+    font-size: 12px;
+    padding: 12px;
+}
+/* NUOVO: ANNUNCIO TORNEO SBLOCCATO */
+#torneoSbloccatoAnnuncio {
+    background: linear-gradient(90deg, #d400ff, #7c3aed);
+    color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 800;
+    font-size: 14px; /* Dimensione ridotta */
+    margin-top: 15px;
+    margin-bottom: 20px; /* AGGIUNTO: Crea spazio sotto l'annuncio */
+    box-shadow: 0 0 15px rgba(212,0,255,0.6);
+    animation: pulseTorneo 1s infinite alternate;
+}
+
+
+
+@keyframes pulseTorneo {
+    from { transform: scale(1); box-shadow: 0 0 10px rgba(212,0,255,0.4); }
+    to { transform: scale(1.02); box-shadow: 0 0 20px rgba(212,0,255,0.8); }
+}
+
+/* AGGIUNTA STILE PER MESSAGGIO TORNEO */
+#torneoMsg {
+    margin-top: 10px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 5px 0;
+}
+
+/* STILI PER RISULTATO SFIDA P2P (NUOVO) */
+#challengeResult {
+    text-align: center;
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+#challengeResult .c-header {
+    font-size: 20px;
+    font-weight: 900;
+    margin-bottom: 15px;
+}
+#challengeResult .c-score {
+    font-size: 30px;
+    font-family: 'Cinzel Decorative', cursive;
+    font-weight: 900;
+    margin: 10px 0;
+    line-height: 1.1;
+}
+#challengeResult .c-win { color: var(--neon-green); text-shadow: 0 0 10px rgba(0, 255, 106, 0.8); }
+#challengeResult .c-lose { color: var(--neon-red); text-shadow: 0 0 10px rgba(255, 63, 63, 0.8); }
+#challengeResult .c-draw { color: var(--accent3); text-shadow: 0 0 10px rgba(255, 204, 0, 0.8); }
+#challengeResult .c-meta {
+    font-size: 14px;
+    margin-top: 15px;
+    line-height: 1.5;
+}
+#marketInfo {
+    margin-bottom: 12px;
+    color: #fff; /* Testo Bianco */
+    text-align: center;
+    /* Riduci la dimensione del testo se necessario */
+    font-size: 14px; 
+}
+
+/* Stile per i contenitori */
+#marketConfirmation {
+    justify-content: center; 
+    gap: 10px; 
+    margin-bottom: 15px;
+}
+
+/* Stile base per tutti i pulsanti piccoli del Mercato */
+#marketConfirmation .btn-sm {
+    flex: 1;
+    font-size: 12px; /* Dimensione testo compatta */
+    font-weight: 700;
+    padding: 10px;
+    border-radius: 8px;
+    
+    /* GLASSMORFISM BASE */
+    color: #fff !important; /* Testo Bianco forzato */
+    backdrop-filter: blur(8px); /* Effetto vetro sfocato */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Bordo semi-trasparente */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: all 0.2s;
+}
+
+/* 🟢 VERDE FLUO NEON */
+#marketConfirmation .btn-sm.btn-success {
+    /* 🟢 Sfondo: Verde Fluo ad alta opacità */
+    background: rgba(57, 255, 20, 0.9); /* #39FF14 in RGB */
+    
+    /* 🟢 Ombra esterna luminosa per esaltare l'effetto "neon" */
+    box-shadow: 0 0 15px rgba(57, 255, 20, 0.8), /* Ombra più intensa */
+                0 0 5px rgba(57, 255, 20, 1);    /* Ombra più stretta e brillante */
+                
+    /* Bordo: Per dare definizione, in una tonalità di verde leggermente più scura o a contrasto */
+    border: 1px solid rgba(0, 200, 0, 1); 
+    
+    /* Testo: In nero o bianco, a seconda di cosa ha più contrasto. 
+       Su un verde molto chiaro, il nero (o il bianco) funziona bene. Usiamo il bianco per un effetto più "cyber". */
+    color: #ffffff; 
+}
+
+
+
+
+/* ⚫ ANNULLA: Grigio Scuro Glass (più neutro) */
+#marketConfirmation .btn-sm.btn-ghost {
+    background: rgba(255, 255, 255, 0.1); /* Sfondo Bianco/Grigio semi-trasparente */
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1); /* Ombra leggera */
+}
+
+/* Effetto al passaggio del mouse per il feedback */
+#marketConfirmation .btn-sm:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+}
+
+/* --- Tocco Finale: Effetti di Contorno e Luminosità --- */
+
+/* 1. Effetto Glassmorphism sui Pulsanti Primari */
+.btn-primary:not(#btnStartSlot) { /* Esclude il pulsante 'RICERCA AVVERSARIO' */
+    /* Gradiente di sfondo più sottile */
+    background: linear-gradient(90deg, #ffcc00, #ff9900); 
+    color: var(--navy) !important; /* Testo Blu Scuro per forte contrasto sull'oro */
+    font-weight: 900;
+    /* Rimuove l'ombra interna del testo per una migliore lettura */
+    text-shadow: none; 
+}
+
+/* 2. Miglioramento Contorno Selezione Squadra (Team Box) */
+.team-box {
+    /* Rimuovi sfondo bianco, usa un grigio molto chiaro e opaco */
+    background: rgba(255, 255, 255, 0.95); 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Ombra discreta */
+    /* Aggiungi una transizione anche per l'ombra */
+    transition: all .2s, box-shadow .4s; 
+}
+.team-box:hover {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
+    transform: translateY(-2px);
+}
+.team-box.selected {
+    /* Effetto Neon Viola Potenziato in linea con l'Accent1 */
+    border-color: var(--accent1);
+    box-shadow: 0 0 15px rgba(124,58,237,0.8), /* Neon viola */
+                0 0 5px rgba(124,58,237,0.3) inset; /* Lieve bagliore interno */
+    background: #fcfcff; /* Sfondo quasi bianco, ma leggermente colorato */
+}
+
+
+/* 3. Effetto "Glow" Neon sulle Card Più Importanti (Dashboard e Match) */
+
+/* Card Dashboard e Card Match (Glassmorphism con contorno Neon sottile) */
+#page-dashboard > .card:first-of-type,
+#page-dashboard > .card:nth-of-type(2), /* L'annuncio del torneo */
+#page-match > .card:first-of-type,
+#page-torneo > .card:first-of-type {
+    border: 1px solid rgba(255,255,255,0.08); /* Bordo esistente */
+    /* Aggiungi un leggero, costante bagliore esterno */
+    box-shadow: 0 0 15px rgba(255, 204, 0, 0.1), /* Bagliore Giallo/Oro */
+                var(--card-shadow); /* Mantiene l'ombra scura base */
+}
+
+/* Selezionatore Calciatore (Neon Giallo/Verde) */
+.calciatore-select:focus {
+    border-color: var(--neon-green);
+    box-shadow: 0 0 10px rgba(0, 255, 106, 0.5); /* Neon Verde */
+}
+
+/* 4. Barra di Separazione Stile Scanline/Cyber */
+.row.scanline-separator {
+    display: block;
+    height: 1px;
+    background: repeating-linear-gradient(
+        90deg,
+        rgba(255,255,255,0) 0%,
+        var(--accent2) 2%,
+        var(--accent2) 5%,
+        rgba(255,255,255,0) 7%
+    );
+    margin: 20px 0;
+    opacity: 0.5;
+}
+
+</style>
+
+</head>
+<body>
+<div class="container">
+
+  <div class="hdr-home">
+    <div class="title-circus">THE GAFFER</div>
+    <div class="subtitle" id="connectionStatus">Status: Offline</div>
+  </div>
+
+  <section id="page-login" class="card">
+    <div style="font-weight:900; font-size:16px;">Accesso Fantallenatore</div>
+    <div class="small">Accedi con il tuo nome Team e la Password.</div>
+    <div style="height:12px"></div>
+    <input id="loginTeam" class="input" placeholder="Nome Team" />
+    <input id="loginPass" class="input" placeholder="Password" type="password" style="margin-top:8px;" />
+    <div class="row" style="margin-top:12px">
+      <button id="btnDoRegister" class="btn btn-primary">REGISTRA</button>
+      <button id="btnDoLogin" class="btn btn-ghost">LOGIN</button>
+    </div>
+    <div id="loginMsg" class="small" style="margin-top:10px;color:var(--neon-red); text-align:center;"></div>
+  </section>
+
+<section id="page-dashboard" class="card hidden">
+  
+  <div id="marketBox" class="market-box hidden" title="Mercato: Potenziamento casuale per 10 Punti Classifica">
+    <i class="fas fa-shopping-cart"></i>
+    <div class="cost">10 Pts</div>
+  </div>
+  
+  <div style="margin-bottom:15px; padding-top:10px;">
+    <div id="welcomeText" class="small fadeIn" style="font-size:12px">Benvenuto, Gaffer!</div>
+    <div id="uiTeam" style="font-family:'Cinzel Decorative', cursive; font-weight:900;font-size:28px; color:var(--accent3);" class="fadeIn">—</div>
+    
+    <div class="dash-info-grid">
+        <div class="dash-item">
+            <div id="uiPoints" class="value" style="color:var(--accent3);">0</div>
+            <div class="label">Punti Classifica</div>
+        </div>
+        <div class="dash-item">
+            <div id="uiForce" class="value" style="color:var(--neon-green)">100</div>
+            <div class="label">Forza Attuale</div>
+        </div>
+        <div class="dash-item">
+            <div id="uiBonusGol" class="value" style="color:var(--accent1)">0</div>
+            <div class="label">Bonus Gol</div>
+        </div>
+    </div>
+  </div>
+
+  <div id="marketInfo" class="small" style="margin-bottom:12px;color:#ffdede; text-align:center;">Tocca il carrello per accedere al mercato!</div>
+  <div id="marketConfirmation" class="row hidden" style="justify-content:center; gap:10px; margin-bottom:15px;">
+      <button id="btnConfirmYes" class="btn btn-sm btn-success" style="flex:1">SÌ, PROCEDI</button>
+      <button id="btnConfirmNo" class="btn btn-sm btn-ghost" style="flex:1">ANNULLA</button>
+  </div>
+  
+  <div id="torneoSbloccatoAnnuncio" class="hidden">
+      🏆 SEI IL VINCITORE!! Vai nella fase finale!
+  </div>
+
+  <div class="play-btn-group">
+    <button id="btnAutoSim" class="play-btn action-secondary"><i class="fas fa-play"></i> GIOCA NUOVA PARTITA</button>
+  </div>
+  
+  <div class="play-btn-group">
+    <button id="btnViewClass" class="play-btn action-primary" style="flex: 2;"><i class="fas fa-trophy"></i> CLASSIFICA</button>
+    <button id="btnViewHistory" class="play-btn btn-ghost" 
+        style="background: linear-gradient(135deg, #A52A2A 0%, #8B0000 100%); 
+               flex: 1; 
+               color: #fff !important; /* Testo bianco */
+               box-shadow: 0 4px 25px rgba(139, 0, 0, 0.7); /* Ombra rossa */
+               border: 1px solid rgba(255, 255, 255, 0.4);">
+    <i class="fas fa-list-alt"></i> STORICO
+</button>
+  </div>
+  
+  <div class="play-btn-group">
+    <button id="btnViewTorneo" class="play-btn action-secondary" style="background: linear-gradient(90deg, #d400ff, #7c3aed); box-shadow: 0 4px 15px rgba(212,0,255,0.4);"><i class="fas fa-shield-alt"></i> LANCIA UNA SFIDA</button>
+  </div>
+  <div class="bonus-panel">
+      <div style="font-weight:900; margin-bottom: 8px;"><i class="fas fa-bolt" style="color:var(--accent3)"></i> Bonus Squadre Oggi</div>
+      <div id="bonusList" class="small">Caricamento bonus...</div>
+  </div>
+  
+<div class="card" style="margin-top:20px; border-left: 5px solid var(--neon-green); padding:12px;">
+      <div style="font-weight:900; font-size:16px;"><i class="fas fa-newspaper" style="color:var(--neon-green)"></i> News dal Gaffer</div>
+      <div class="small" style="margin-top:5px; color:var(--muted);">(Ultimi annunci di gioco)</div>
+      <ul id="newsList" style="list-style: none; padding: 0; margin-top: 8px; font-size: 13px;">
+          </ul>
+  </div>
+
+
+  <div style="margin-top:25px; text-align:center;">
+    <button id="btnDashBack" class="play-btn" style="width:50%; background:rgba(255,63,63,0.8); color:#fff; box-shadow: 0 4px 15px rgba(255,63,63,0.4);"><i class="fas fa-sign-out-alt"></i> LOGOUT</button>
+  </div>
+
+</section>
+
+<section id="page-newmatch" class="card hidden">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <div style="font-weight:900">Seleziona la tua squadra</div>
+    </div>
+    <div class="small" style="margin-top:6px">Tocca il logo per scegliere il tuo Club.</div>
+    <div id="teamsGrid" class="grid" style="margin-top:15px"></div>
+    <div id="selectedMsg" class="small" style="margin-top:10px;color:var(--neon-green); text-align:center;"></div>
+    <div class="back-row">
+      <button id="btnBackDash1" class="btn btn-ghost btn-sm"><i class="fas fa-arrow-left"></i> Torna alla Dashboard</button>
+    </div>
+  </section>
+
+  <section id="page-match" class="card hidden">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <div style="font-weight:900; font-size:18px;">Arena di Gioco</div>
+    </div>
+    <div class="small" style="margin-top:6px" id="dailyMsg">Seleziona la tua squadra per iniziare.</div>
+
+    <div class="card-squadre" style="margin-top:20px;">
+      <div class="card white match-card">
+        <div class="small" style="color:#666">LA TUA SQUADRA</div>
+        <img id="logoMyTeam" src="" alt="logo" />
+        <div id="matchMyTeam" style="margin-top:6px;font-weight:800; color:var(--navy)">—</div>
+      </div>
+
+      <div style="font-size:24px; font-weight:900; color:var(--accent3); margin-top:20px;">VS</div>
+      
+      <div class="card white match-card">
+        <div class="small" style="color:#666">AVVERSARIO</div>
+        <img id="logoAvv" src="" alt="logo avversario" />
+        <div id="matchAvv" style="margin-top:6px;font-weight:800; color:var(--navy)">?</div>
+      </div>
+    </div>
+    
+    <div id="calciatoriContainer" class="hidden">
+        <div class="small" style="text-align:center; margin-bottom:5px; color:var(--accent3); font-weight:600;"><i class="fas fa-star"></i> Scommetti sul Migliore in Campo</div>
+        <select id="calciatoreSelect" class="calciatore-select" disabled>
+            <option value="">Caricamento Calciatori...</option>
+        </select>
+        <div class="small" style="text-align:center; margin-top:5px; color:var(--muted); font-size:11px;">(+1 Punto Classifica EXTRA in caso di Vittoria)</div>
+    </div>
+
+    <div class="pronostico-container">
+        <div class="small" style="text-align:center; margin-bottom:8px; color:var(--accent3); font-weight:600;"><i class="fas fa-sync-alt"></i> Fai il tuo Pronostico</div>
+        <div class="pronostico-btn-group">
+            <button id="btnSlotWin" class="btn btn-sm btn-ghost" data-pronostico="VITTORIA"><i class="fas fa-thumbs-up"></i> VITTORIA</button>
+            <button id="btnSlotLose" class="btn btn-sm btn-ghost" data-pronostico="SCONFITTA"><i class="fas fa-thumbs-down"></i> SCONFITTA</button>
+        </div>
+    </div>
+
+    <div style="display:flex;gap:10px;justify-content:center;margin-top:20px">
+      <button id="btnStartSlot" class="btn btn-primary" style="flex:1"><i class="fas fa-search"></i> RICERCA AVVERSARIO</button>
+      <button id="btnPlayMatch" class="play-btn action-secondary" disabled style="flex:1"><i class="fas fa-forward"></i> GIOCA!</button>
+    </div>
+
+
+<div id="matchResult" class="card hidden" style="margin-top:20px;text-align:center">
+  
+  <div class="small" style="color:var(--accent3);">Risultato Finale</div>
+  <div id="matchScore" class="score" style="margin-top:6px">—</div>
+  <div id="matchMeta" class="small" style="margin-top:6px; line-height: 1.4;"></div>
+
+  <div style="display:flex; gap:10px; margin-top:20px;">
+    <button id="btnShare" class="btn btn-primary btn-sm hidden" style="flex:1; background: #25D366; color:#fff;"><i class="fab fa-whatsapp"></i> Condividi</button>
+    <button id="btnClassifica" class="btn btn-ghost btn-sm" style="flex:1;">
+      <i class="fas fa-chart-line"></i> Vedi Classifica
+    </button>
+  </div>
+
+</div>
+
+    <div class="back-row">
+      <button id="btnBackDash2" class="btn btn-ghost btn-sm"><i class="fas fa-arrow-left"></i> Torna alla Dashboard</button>
+    </div>
+  </section>
+
+  <section id="page-torneo" class="card hidden">
+    <div style="font-weight:900; font-size:18px;"><i class="fas fa-shield-alt" style="color:var(--accent2)"></i> Sfide P2P & Torneo</div>
+    <div class="small" style="margin-top:4px;">Lancia o accetta sfide contro altri partecipanti!</div>
+    
+    <div id="torneoMsg"></div> 
+    
+    <div id="challengeResult" class="hidden">
+        <div class="c-header">IL TUO RISULTATO SFIDA P2P</div>
+        <div class="c-score"></div>
+        <div class="c-meta"></div>
+        <div style="margin-top:20px;">
+            <button id="btnChallengeBackDash" class="btn btn-primary" style="width:100%"><i class="fas fa-home"></i> Torna alla Dashboard</button>
+        </div>
+    </div>
+    
+    <div id="challengeLaunchControls">
+    <div style="margin-top:20px;">
+        <div style="font-weight:800; color:var(--accent3); margin-bottom: 10px;">Lancia una Sfida:</div>
+        <select id="challengeTarget" class="calciatore-select">
+            <option value="" disabled selected>Caricamento avversari...</option>
+        </select>
+        
+        <div style="margin-top:10px; display:flex; gap:10px;">
+            <button id="btnLaunchChallenge" class="btn btn-primary" style="flex:1;"><i class="fas fa-bolt"></i> LANCIA SFIDA</button>
+            <button id="btnShareChallenge" class="btn btn-sm" style="flex:unset; width:auto; background: #25D366; color:#fff;" disabled>
+                <i class="fab fa-whatsapp"></i> Invita
+            </button>
+        </div>
+        
+        <div class="small" style="text-align:center; margin-top:5px; color:var(--muted); font-size:11px;">(Costo sfida: Gratuita.)</div>
+    </div>
+</div>
+
+    
+    <div id="challengePendingControls">
+        <div style="margin-top:30px;">
+            <div style="font-weight:800; color:var(--accent3); margin-bottom: 10px;">Sfide in Attesa (Ricevute):</div>
+            <div id="pendingChallengesList" class="small" style="color:var(--muted)">Nessuna sfida in attesa...</div>
+        </div>
+    </div>
+    
+    <div class="back-row" style="margin-top:30px;">
+      <button id="btnBackDashTorneo" class="btn btn-ghost btn-sm"><i class="fas fa-arrow-left"></i> Torna alla Dashboard</button>
+    </div>
+  </section>
+  <section id="page-classifica" class="card hidden">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <div style="font-weight:900; font-size:18px;"><i class="fas fa-trophy" style="color:var(--accent3)"></i> Classifica Generale</div>
+    </div>
+    <div class="small" style="margin-top:4px;">Ordinata per Punti Classifica, poi Forza.</div>
+    <div id="classList" style="margin-top:15px"></div>
+    <div class="back-row">
+      <button id="btnBackDash3" class="btn btn-ghost btn-sm"><i class="fas fa-arrow-left"></i> Torna alla Dashboard</button>
+    </div>
+  </section>
+
+  <section id="page-history" class="card hidden">
+    <div style="font-weight:900; font-size:18px;"><i class="fas fa-clock" style="color:var(--accent1)"></i> Storico Partite (Ultimi 20)</div>
+    <div class="history-row history-header" style="margin-top: 15px;">
+        <div>Data</div>
+        <div>Dettaglio / Avversario</div>
+        <div class="history-result">Punti</div>
+    </div>
+    <div id="historyList" style="margin-top: 5px;"></div>
+    <div class="back-row">
+      <button id="btnBackDash4" class="btn btn-ghost btn-sm"><i class="fas fa-arrow-left"></i> Torna alla Dashboard</button>
+    </div>
+  </section>
+
+</div>
+
+<script>
+// ⚠️ AGGIORNA L'URL CON IL TUO NUOVO DEPLOYMENT
+const API_URL = "https://script.google.com/macros/s/AKfycbyz7brLpDiw65PH24X-2e4jqlIWPaRdoGNyegKB0Wlaoa3YSehqrHO5RUdiqFzDOhD7gA/exec";
+const MARKET_COST = 10; 
+
+const STATE = {
+  user: null,
+  puntiForza: 100, 
+  bonusGol: 0, 
+  squads: [],
+  loghi: {},
+  infoSquadre: {}, 
+  bonusGiornalieri: {}, 
+  calciatoriSquadra: [], 
+  selected: null,
+  avversario: null,
+  slotInterval: null,
+  slotTimeout: null,
+  playedToday: false,
+  puntiClassifica: 0, 
+  pronostico: null,
+  // MODIFICA 1: Stato del Torneo impostato su true di default
+  torneoSbloccato: true,
+  // MODIFICA 2: Nuovo stato per bloccare la UI dopo una sfida P2P
+  challengeOutcome: null 
+};
+
+// 1. DEFINIZIONE FUNZIONE HELPER
+const el = id => document.getElementById(id);
+
+// --------------------------------------------------------------------------
+
+/* ================= JSONP HELPER ================= */
+function jsonp(params, onResp){
+  const p = new URLSearchParams(params);
+  const cb = "CB_"+Math.random().toString(36).slice(2,9)+"_"+Date.now();
+  p.append("callback", cb);
+  
+  // Funzione di callback globale
+  window[cb] = function(d){ 
+    try{ onResp?.(d); } 
+    finally { 
+      // Pulizia
+      try{ delete window[cb]; } catch(e){}
+      document.getElementById(cb+"_script")?.remove();
+    } 
+  };
+  
+  // Inserimento script per la richiesta
+  const s = document.createElement('script'); 
+  s.id = cb + "_script"; 
+  s.src = API_URL + "?" + p.toString();
+  
+  // Gestione errore di rete/blocco
+  s.onerror = function(){ 
+      console.error("JSONP Network Error or CORS issue:", s.src);
+      // Solo se siamo in una pagina che ha marketInfo
+      const errorMsg = "❌ Errore di Rete o Script App Fallito.";
+      if(el('marketInfo')) el('marketInfo').innerText = errorMsg; 
+      else el('loginMsg').innerText = errorMsg;
+      
+      onResp?.({success:false,msg:"Network error or App Script failure"}); 
+      s.remove(); 
+  };
+  document.body.appendChild(s);
+}
+
+/* ================= UI HELPERS ================= */
+// AGGIUNTA 'page-torneo' alla lista
+function hideAll(){ ['page-login','page-dashboard','page-newmatch','page-match','page-classifica', 'page-history', 'page-torneo'].forEach(id=>el(id)?.classList.add('hidden')) }
+function show(id){ 
+  hideAll(); 
+  el(id)?.classList.remove('hidden'); 
+  // Scorri in cima quando si cambia pagina
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/**
+ * Mostra un messaggio di feedback nella sezione Torneo/Sfide.
+ * @param {string} message - Il messaggio da mostrare.
+ * @param {boolean} isSuccess - Se true, il testo è verde (successo), altrimenti rosso (errore).
+ */
+function showTorneoMessage(message, isSuccess = true) {
+    const msgEl = el('torneoMsg');
+    if (!msgEl) {
+        console.warn('Elemento #torneoMsg non trovato. Usando alert:', message);
+        alert(message);
+        return; 
+    }
+    msgEl.style.color = isSuccess ? 'var(--neon-green)' : 'var(--neon-red)';
+    msgEl.innerHTML = message;
+    
+    // Pulisce il messaggio dopo 5 secondi
+    setTimeout(() => {
+        if(msgEl.innerHTML === message) msgEl.innerHTML = '';
+    }, 5000); 
+}
+
+
+// --------------------------------------------------------------------------
+/* ================= FUNZIONI MERCATO ================= */
+
+function aggiornaMercatoUI(punti) {
+  const box = el('marketBox');
+  const info = el('marketInfo');
+  const confirmBox = el('marketConfirmation'); 
+  
+  if (!box || !info || !confirmBox) return; 
+
+  confirmBox.classList.add('hidden'); 
+
+  if (punti >= MARKET_COST) {
+    box.classList.add('can-buy');
+    box.setAttribute('title', 'Costo 10 Punti Classifica per un potenziamento casuale (Forza o Bonus Gol)');
+    info.innerHTML = `🛒 Mercato: Tocca il carrello per un potenziamento! Costa **${MARKET_COST} Punti Classifica**.`;
+    box.style.pointerEvents = 'auto';
+  } else {
+    box.classList.remove('can-buy');
+    box.setAttribute('title', `Hai solo ${punti} Punti Classifica. Ne servono ${MARKET_COST}.`);
+    info.innerHTML = `Mancano **${MARKET_COST - punti}** punti per accedere al mercato.`;
+    box.style.pointerEvents = 'none'; 
+  }
+}
+
+function richiediConfermaMercato() {
+  const box = el('marketBox');
+  const info = el('marketInfo'); 
+  const confirmBox = el('marketConfirmation');
+  
+  if (!STATE.user || STATE.puntiClassifica < MARKET_COST) {
+      aggiornaMercatoUI(STATE.puntiClassifica); 
+      return;
+  }
+  
+  info.innerHTML = `❓ Sei sicuro di voler spendere **${MARKET_COST} Punti Classifica** per un potenziamento casuale?`;
+  box.style.pointerEvents = 'none'; 
+  confirmBox.classList.remove('hidden'); 
+}
+
+function eseguiAcquistoMercato() {
+  const box = el('marketBox');
+  const info = el('marketInfo'); 
+  const confirmBox = el('marketConfirmation');
+  
+  confirmBox.classList.add('hidden');
+  
+  box.style.pointerEvents = 'none'; 
+  info.innerText = 'Transazione in corso... Attendere...';
+
+
+  jsonp({action: 'marketDay', team: STATE.user}, res => {
+    
+    if(res.success){
+        const oldForce = STATE.puntiForza;
+        const oldBonus = STATE.bonusGol;
+
+        // Aggiorna lo stato globale con i nuovi valori dal backend
+        STATE.puntiForza = Number(res.nuovaForza || 0); 
+        STATE.puntiClassifica = Number(res.nuoviPunti || 0); 
+        STATE.bonusGol = Number(res.nuovoBonusGol || 0);
+
+        // Aggiorna l'UI del dashboard con effetti visivi
+        const uiForceEl = el('uiForce');
+        const uiBonusEl = el('uiBonusGol');
+        const uiPointsEl = el('uiPoints');
+        
+        // Forza
+        uiForceEl.innerText = `${STATE.puntiForza}`;
+        if(STATE.puntiForza > oldForce) uiForceEl.classList.add('force-change-positive');
+        else if(STATE.puntiForza < oldForce) uiForceEl.classList.add('force-change-negative');
+        setTimeout(()=> { uiForceEl.classList.remove('force-change-positive','force-change-negative'); }, 1500);
+
+        // Bonus Gol
+        uiBonusEl.innerText = `${STATE.bonusGol}`;
+        if(STATE.bonusGol > oldBonus) uiBonusEl.classList.add('force-change-positive');
+        setTimeout(()=> { uiBonusEl.classList.remove('force-change-positive'); }, 1500);
+
+        // Punti Classifica (sempre aggiornato)
+        uiPointsEl.innerText = `${STATE.puntiClassifica}`;
+        
+        loadClassifica(); 
+        loadHistory();   
+
+        // MESSAGGIO UI
+        info.innerHTML = `✅ **${res.msg}**`;
+        
+        // Effetto visivo (Confetti)
+        if (res.msg.includes('Aumento') || res.msg.includes('Super Affare')) { 
+             for(let i=0; i<20; i++){
+                const c = document.createElement('div');
+                c.className = 'confetti';
+                c.style.background = res.msg.includes('Forza') ? 'var(--neon-green)' : '#ffd166';
+                const boxRect = box.getBoundingClientRect();
+                c.style.left = `${boxRect.left + (boxRect.width / 2) + (Math.random() * 40 - 20)}px`;
+                c.style.top = `${boxRect.top + (boxRect.height / 2) + (Math.random() * 40 - 20)}px`;
+                c.style.animationDelay = `${Math.random() * 0.5}s`;
+                document.body.appendChild(c);
+                setTimeout(()=>c.remove(), 2500);
+             }
+        }
+
+    } else {
+        // MESSAGGIO UI
+        info.innerHTML = `❌ Transazione fallita: ${res.msg || 'riprova'}`;
+    }
+    
+    aggiornaMercatoUI(STATE.puntiClassifica);
+  });
+}
+
+function annullaMercato() {
+    aggiornaMercatoUI(STATE.puntiClassifica); 
+}
+// --------------------------------------------------------------------------
+
+
+/* ================= BLOCCO GIORNALIERA ================= */
+function checkPlayedTodayServer(user, callback){
+  jsonp({action:'hasPlayedToday', team: user}, res=>{
+    STATE.playedToday = !!res?.played;
+    
+    // Aggiorna i pulsanti di gioco
+    el('btnPlayMatch').disabled = STATE.playedToday || !STATE.avversario || !STATE.pronostico; // Aggiunto controllo pronostico
+    el('btnStartSlot').disabled = STATE.playedToday;
+
+    // Disabilita i pulsanti pronostico se ha già giocato
+    el('btnSlotWin').disabled = STATE.playedToday;
+    el('btnSlotLose').disabled = STATE.playedToday;
+    el('calciatoreSelect').disabled = STATE.playedToday;
+
+    if(STATE.playedToday) el('dailyMsg').innerHTML = '⛔ **Hai già giocato una partita oggi!** Torna domani.';
+    else if (STATE.selected) el('dailyMsg').innerText = 'Seleziona un calciatore e un pronostico, poi cerca l\'avversario.';
+    
+    if(typeof callback === 'function') callback(STATE.playedToday);
+  });
+}
+
+/* ================= CARICA BONUS GIORNALIERI ================= */
+function loadBonus() {
+  const bonusListEl = el('bonusList');
+  if (!bonusListEl) return;
+  
+  bonusListEl.innerHTML = '<i class="fas fa-sync-alt fa-spin"></i> Caricamento bonus...'; 
+
+  jsonp({ action: 'getBonusOggi' }, (res) => {
+    if (res.success && Array.isArray(res.bonus) && res.bonus.length > 0) {
+      
+      let html = '';
+      res.bonus.forEach(b => {
+        // Assegna un colore in base al valore
+        let colorClass = b.valore >= 5 ? 'var(--neon-green)' : (b.valore > 0 ? 'var(--accent3)' : 'var(--neon-red)');
+        
+        html += `
+          <div class="bonus-squadra">
+            <div style="font-weight:700">${b.squadra}</div>
+            <div class="bonus-val" style="color:${colorClass};">+${b.valore} Forza</div>
+          </div>
+        `;
+      });
+      bonusListEl.innerHTML = html;
+      
+      STATE.bonusGiornalieri = res.bonus.reduce((acc, b) => {
+          acc[b.squadra] = b.valore;
+          return acc;
+      }, {});
+      
+      // Ricarica la preview per aggiornare i valori di Forza nel team box
+      if (STATE.squads.length > 0) {
+         renderTeamsPreview();
+      }
+      
+    } else {
+      bonusListEl.innerHTML = '<div class="small">Nessun bonus giornaliero attivo.</div>';
+    }
+  });
+}
+
+/* ================= CARICA CALCIATORI ================= */
+function loadCalciatori(squadra) {
+    const selectEl = el('calciatoreSelect');
+    const containerEl = el('calciatoriContainer');
+    selectEl.innerHTML = '<option value="">Nessun calciatore (Bonus 0)</option>'; // Default
+    selectEl.disabled = true;
+    containerEl.classList.add('hidden');
+    
+    if (!squadra) return;
+
+    selectEl.innerHTML = '<option value="" disabled selected>Caricamento Calciatori...</option>';
+
+    jsonp({ action: 'getCalciatoriBySquadra', squadra: squadra }, (res) => {
+        if (res.success && Array.isArray(res.calciatori) && res.calciatori.length > 0) {
+            STATE.calciatoriSquadra = res.calciatori;
+            
+            let options = '<option value="">Nessun calciatore (Bonus 0)</option>'; // Opzione per non usare il bonus
+            options += '<option value="" disabled>--- Seleziona il tuo Campione ---</option>';
+
+            res.calciatori.forEach(c => {
+                options += `<option value="${c.nome}">${c.nome} (${c.ruolo})</option>`;
+            });
+            selectEl.innerHTML = options;
+            selectEl.value = ""; // Seleziona l'opzione "Nessun calciatore" di default
+            selectEl.disabled = STATE.playedToday;
+            containerEl.classList.remove('hidden');
+        } else {
+            selectEl.innerHTML = '<option value="">Nessun calciatore disponibile</option>';
+            selectEl.value = ""; 
+            selectEl.disabled = STATE.playedToday;
+        }
+    });
+}
+
+/* ================= TORNEO / SFIDE P2P (CORRETTO) ================= */
+
+// Carica i partecipanti per la sfida
+function loadChallengeTargets() {
+    const selectEl = el('challengeTarget');
+    const btnLaunch = el('btnLaunchChallenge');
+    
+    selectEl.innerHTML = '<option value="" disabled selected>Caricamento avversari...</option>';
+    
+    // Gestione disabilitazione pulsante (solo se punti Classifica < 1)
+    btnLaunch.disabled = STATE.puntiClassifica < 1;
+    
+    // CHIAMATA JSONP REALE per ottenere la lista di tutti i team
+     jsonp({ action: 'getChallengeTargets', team: STATE.user }, (res) => {
+        if (res.success && Array.isArray(res.targets)) {
+             let options = '<option value="" disabled selected>Seleziona un avversario da sfidare...</option>';
+             if (res.targets.length > 0) {
+                 res.targets.forEach(target => {
+                    options += `<option value="${target.team}">${target.team} (Forza: ${target.forza})</option>`;
+                 });
+             } else {
+                 options = '<option value="" disabled selected>Nessun altro team disponibile.</option>';
+             }
+             selectEl.innerHTML = options;
+        } else {
+            selectEl.innerHTML = '<option value="" disabled selected>Nessun team caricato o errore nel server.</option>';
+        }
+        loadPendingChallenges(); 
+     });
+}
+
+// Funzione per rifiutare una sfida
+function rejectChallenge(e) {
+    const btn = e.currentTarget;
+    const challengeId = btn.dataset.sfidaId; 
+    const avversario = btn.dataset.avversario;
+    
+    if (!btn || !challengeId) return; 
+    
+    // Blocco UI
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Rifiutando...';
+    
+    // CHIAMATA JSONP per rifiutare la sfida
+    jsonp({action: 'rifiutaSfida', team: STATE.user, challengeId: challengeId}, (res) => {
+        
+        if (res.success) {
+            showTorneoMessage(`✅ Sfida rifiutata! ${avversario} è stato notificato.`, true);
+        } else {
+            showTorneoMessage(`❌ Errore nel rifiuto della sfida: ${res.msg || 'Errore sconosciuto.'}`, false);
+        }
+        
+        loadPendingChallenges(); 
+    });
+}
+
+// ✅ NUOVA LOGICA: La sfida viene accettata e SIMULATA immediatamente in cascata
+function handleAcceptance(e) {
+    const btn = e.currentTarget;
+    const challengeId = btn.dataset.sfidaId;
+    const avversario = btn.dataset.avversario;
+    
+    if (!btn || !challengeId) return; 
+
+    // Blocco UI
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Accettando e Simuando...';
+    
+    // 1. CHIAMATA JSONP: Cambia lo stato della sfida in ACCETTATA
+    jsonp({action: 'accettaSfida', team: STATE.user, challengeId: challengeId}, (res) => {
+        
+        if (res.success) {
+            // ✅ SUCCESSO NELL'ACCETTAZIONE! ORA AVVIA LA SIMULAZIONE IMMEDIATAMENTE.
+            
+            // 2. CHIAMATA JSONP: Simula la partita immediatamente dopo l'accettazione
+            jsonp({action: 'simulaSfidaP2P', team: STATE.user, challengeId: challengeId}, (simulazioneRes) => {
+                
+                // --- Logica Gestione Risultato Simulazione ---
+                if (simulazioneRes.success) {
+                    
+                    const yourScore = Number(simulazioneRes.tuaGol || 0);
+                    const oppScore = Number(simulazioneRes.avversarioGol || 0);
+                    
+                    // Aggiorna lo stato globale con i nuovi valori dal backend
+                    STATE.puntiForza = Number(simulazioneRes.nuovaForza || STATE.puntiForza); 
+                    STATE.puntiClassifica = Number(simulazioneRes.nuoviPunti || STATE.puntiClassifica); 
+                    STATE.bonusGol = Number(simulazioneRes.nuovoBonusGol || STATE.bonusGol);
+                    
+                    // Aggiorna Dashboard
+                    el('uiPoints').innerText = `${STATE.puntiClassifica}`;
+                    el('uiForce').innerText = `${STATE.puntiForza}`;
+                    el('uiBonusGol').innerText = `${STATE.bonusGol}`;
+                    
+                    // ✅ IMPOSTA LO STATO CHALLENGE OUTCOME
+                    STATE.challengeOutcome = {
+                        avversario: avversario,
+                        risultato: simulazioneRes.risultato,
+                        puntiGuadagnati: simulazioneRes.puntiGuadagnati,
+                        esito: yourScore > oppScore ? 'VITTORIA' : (yourScore < oppScore ? 'SCONFITTA' : 'PAREGGIO'),
+                        msg: simulazioneRes.msg || 'Sfida completata.'
+                    };
+                    
+                    showTorneoMessage(`✅ SFIDA COMPLETATA! Controlla il risultato!`, true);
+                    
+                } else {
+                    // Errore nella simulazione
+                    showTorneoMessage(`❌ Errore nella simulazione: ${simulazioneRes.msg || 'Errore sconosciuto.'}`, false);
+                }
+                
+                // Ricarica la lista per nascondere la sfida giocata e mostrare il risultato fisso
+                loadPendingChallenges(); 
+                loadClassifica();
+                // --- Fine Logica Gestione Risultato Simulazione ---
+                
+            });
+            
+        } else {
+            // Caso di fallimento nell'accettazione (es. Sfida già accettata, ecc.)
+            showTorneoMessage(`❌ Errore nell'accettazione: ${res.msg || 'Errore sconosciuto.'}`, false); 
+            loadPendingChallenges(); // Ricarica solo in caso di errore di accettazione
+        }
+    });
+}
+
+
+// Carica le sfide in attesa per l'utente (corregge la visualizzazione vs undefined e listener)
+function loadPendingChallenges() {
+    const listEl = el('pendingChallengesList');
+    const resultEl = el('challengeResult');
+    const launchControls = el('challengeLaunchControls');
+    const pendingControls = el('challengePendingControls');
+    
+    if (!listEl || !resultEl || !launchControls || !pendingControls) return;
+    
+    // 💡 LOGICA DI BLOCCO: Se abbiamo un risultato fisso, mostriamo SOLO quello.
+    if (STATE.challengeOutcome) {
+        
+        resultEl.classList.remove('hidden');
+        launchControls.classList.add('hidden');
+        pendingControls.classList.add('hidden');
+        el('torneoMsg').classList.add('hidden'); // Nasconde il messaggio temporaneo
+        
+        const outcome = STATE.challengeOutcome;
+        const scoreEl = resultEl.querySelector('.c-score');
+        const headerEl = resultEl.querySelector('.c-header');
+        const metaEl = resultEl.querySelector('.c-meta');
+        
+        // Pulizia Classi
+        scoreEl.classList.remove('c-win', 'c-lose', 'c-draw');
+        
+        // Impostazione UI
+        scoreEl.innerText = outcome.risultato;
+        headerEl.innerText = `IL TUO RISULTATO CONTRO ${outcome.avversario}`;
+        metaEl.innerHTML = `
+            <div style="font-weight:900;">ESITO: <span style="color:${outcome.esito === 'VITTORIA' ? 'var(--neon-green)' : (outcome.esito === 'SCONFITTA' ? 'var(--neon-red)' : 'var(--accent3)')}">${outcome.esito}</span></div>
+            <div>Punti Classifica Vinti: <span style="color:var(--neon-green)">+${outcome.puntiGuadagnati}</span></div>
+            <div style="font-style:italic; margin-top: 10px; color:var(--muted); font-size:12px;">"${outcome.msg}"</div>
+        `;
+        
+        // Impostazione Colore Risultato
+        if (outcome.esito === 'VITTORIA') scoreEl.classList.add('c-win');
+        else if (outcome.esito === 'SCONFITTA') scoreEl.classList.add('c-lose');
+        else scoreEl.classList.add('c-draw');
+        
+        return; // **BLOCCA** l'esecuzione successiva
+    }
+
+    // Altrimenti, mostra i controlli standard (Lancia/Accetta)
+    resultEl.classList.add('hidden');
+    launchControls.classList.remove('hidden');
+    pendingControls.classList.remove('hidden');
+    el('torneoMsg').classList.remove('hidden');
+    
+    
+    listEl.innerHTML = '<i class="fas fa-sync-alt fa-spin"></i> Caricamento sfide...';
+    
+    // CHIAMATA JSONP REALE per le sfide in attesa
+    jsonp({ action: 'checkSfideRicevute', team: STATE.user }, (res) => {
+        if (!listEl) return;
+        
+        if (res.success && Array.isArray(res.sfide) && res.sfide.length > 0) {
+            let html = '';
+            res.sfide.forEach(sfida => {
+                
+                const sfidante = sfida.sfidante || sfida.avversario || 'Sconosciuto';
+                const challengeId = sfida.id;
+                // 💡 ASSUMIAMO CHE IL CAMPO 'stato' SIA PRESENTE (ACCETTATA, PENDING, RISOLTA)
+                const stato = sfida.stato || 'PENDING'; 
+                
+                let actionButton = '';
+                
+                if (stato === 'PENDING') {
+                    // La sfida è in attesa, deve essere accettata (che ora simula subito)
+                    actionButton = `
+                        <button class="btn btn-sm btn-success btn-accept-challenge" 
+                            data-sfida-id="${challengeId}" 
+                            data-avversario="${sfidante}" 
+                            style="flex:unset; width:auto; padding:8px 10px; margin-right: 8px;">
+                            <i class="fas fa-handshake"></i> Accetta e Gioca!
+                        </button>
+                    `;
+                } else if (stato === 'ACCETTATA') {
+                    // Stato intermedio (se GAS non è istantaneo, mostra un messaggio di attesa)
+                    actionButton = `<div class="small" style="color:var(--accent3); font-weight:700;">In corso...</div>`;
+                } else {
+                    // Stato RISOLTA/COMPLETA
+                    actionButton = `<div class="small" style="color:var(--neon-green); font-weight:700;">Risolta/Completata</div>`;
+                }
+                
+                // Rifiuta è sempre disponibile per PENDING
+                const rejectButton = stato === 'PENDING' ? `
+                    <button class="btn btn-sm btn-ghost btn-reject-challenge" 
+                        data-sfida-id="${challengeId}" 
+                        data-avversario="${sfidante}" 
+                        style="flex:unset; width:auto; padding:8px 10px; background: rgba(255,63,63,0.5);">
+                        <i class="fas fa-times"></i> Rifiuta
+                    </button>
+                ` : '';
+
+
+                 html += `
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px; padding:8px; border-radius:6px; background:rgba(255,255,255,0.05);">
+                        <div style="font-weight:700; color:#fff; flex-grow: 1;">vs ${sfidante} (${stato})</div>
+                        ${actionButton}
+                        ${rejectButton}
+                    </div>
+                 `;
+            });
+            listEl.innerHTML = html;
+            
+            // Aggiungi event listener per l'ACCETTAZIONE
+            document.querySelectorAll('.btn-accept-challenge').forEach(btn => {
+                btn.removeEventListener('click', handleAcceptance);
+                btn.addEventListener('click', handleAcceptance);
+            });
+            
+            // Aggiungi event listener per il RIFIUTO
+            document.querySelectorAll('.btn-reject-challenge').forEach(btn => {
+                btn.removeEventListener('click', rejectChallenge);
+                btn.addEventListener('click', rejectChallenge);
+            });
+
+        } else {
+             listEl.innerHTML = '<div class="small" style="color:var(--muted)">Nessuna sfida attiva al momento. Lancia una sfida tu!</div>';
+        }
+    });
+}
+
+
+// Event listener per lanciare la sfida (Correzione 2 e 3)
+el('btnLaunchChallenge')?.addEventListener('click', () => {
+    const target = el('challengeTarget').value;
+    const btn = el('btnLaunchChallenge');
+    
+    // Controlli di validazione
+    if (!STATE.user) {
+        showTorneoMessage('❌ Errore: Devi essere loggato per lanciare sfide!', false);
+        return;
+    }
+    if (!target) {
+        showTorneoMessage('❌ Seleziona un avversario da sfidare!', false);
+        return;
+    }
+    
+    if (STATE.puntiClassifica < 1) {
+        showTorneoMessage('❌ Non hai abbastanza Punti Classifica (costo 1 punto) per lanciare la sfida.', false);
+        return;
+    }
+    
+    // Disabilita il pulsante
+    const oldText = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Invio...';
+
+    // Chiamata JSONP per lanciareSfida
+    jsonp({action: 'lanciaSfida', team: STATE.user, targetTeam: target, cost: 1}, (res) => {
+        
+        // Ri-verifica il costo dopo la risposta del server
+        btn.disabled = STATE.puntiClassifica < 1; 
+        btn.innerHTML = oldText;
+        
+        if (res.success) {
+            showTorneoMessage(`✅ Sfida lanciata con successo contro ${target}! Attendiamo la sua accettazione.`, true);
+            // Aggiorna i punti locali e la classifica dopo il costo
+            STATE.puntiClassifica = Number(res.nuoviPunti || STATE.puntiClassifica - 1);
+            el('uiPoints').innerText = `${STATE.puntiClassifica}`;
+            loadClassifica();
+        } else {
+            showTorneoMessage(`❌ Impossibile lanciare la sfida: ${res.msg || 'Errore sconosciuto.'}`, false);
+        }
+    });
+});
+/* ================= FINE TORNEO / SFIDE P2P (CORRETTO) ================= */
+
+
+
+/* ================= INIT (CORRETTO) ================= */
+// Funzione per l'inizializzazione del codice (non viene eseguita subito)
+function init() {
+    show('page-login');
+    loadSquads();
+    
+    // 🏆 GESTIONE EVENTI MERCATO
+    const marketBoxEl = el('marketBox'); 
+    if (marketBoxEl) {
+        // Usiamo touchstart per reattività mobile
+        const handleMarketClick = (e) => {
+            e.preventDefault(); 
+            e.stopPropagation(); 
+            richiediConfermaMercato(); 
+        };
+        
+        marketBoxEl.addEventListener('touchstart', handleMarketClick, { passive: false }); 
+        marketBoxEl.addEventListener('click', handleMarketClick);
+        
+        // ⭐️ LISTENER PER I PULSANTI SÌ/NO (FIX)
+        el('btnConfirmYes')?.addEventListener('click', eseguiAcquistoMercato);
+        el('btnConfirmNo')?.addEventListener('click', annullaMercato);
+    }
+
+    const storedTeam = localStorage.getItem('GafferTeam');
+    const storedPass = localStorage.getItem('GafferPass');
+
+    if (storedTeam && storedPass) {
+        el('loginTeam').value = storedTeam;
+        el('loginPass').value = storedPass;
+        doLogin();
+    }
+
+    // Event listener per i pulsanti di pronostico (Aggiunto Optional Chaining)
+    el('btnSlotWin')?.addEventListener('click', setPronostico);
+    el('btnSlotLose')?.addEventListener('click', setPronostico);
+    
+    // ✅ NUOVO LISTENER: Chiude il risultato sfida e torna alla dashboard
+    el('btnChallengeBackDash')?.addEventListener('click', () => { 
+        STATE.challengeOutcome = null; // Reset cruciale
+        el('torneoMsg').innerHTML = ''; // Pulisci eventuali messaggi
+        show('page-dashboard'); 
+    });
+    
+}
+
+// 🔑 CORREZIONE CRITICA: Eseguo init() solo dopo che il DOM è completamente caricato
+document.addEventListener('DOMContentLoaded', init);
+
+
+/* ================= LOGIN / REGISTER ================= */
+el('btnDoRegister').addEventListener('click',()=>{
+  const t = el('loginTeam').value.trim(), p = el('loginPass').value.trim();
+  if(!t||!p){ el('loginMsg').innerText = '❌ Inserisci Team e Password'; return; }
+  el('loginMsg').innerText = 'Registrazione in corso...';
+  jsonp({action:'register',team:t,pass:p}, res => {
+    el('loginMsg').innerText = res?.msg||'❌ Errore';
+    if(res?.success) setTimeout(()=>{ el('loginMsg').innerText='✅ Registrazione OK! Puoi effettuare il login.'; },1000);
+  });
+});
+
+el('btnDoLogin').addEventListener('click', doLogin);
+function doLogin(){
+  const t = el('loginTeam').value.trim(), p = el('loginPass').value.trim();
+  if(!t||!p){ el('loginMsg').innerText='❌ Compila Team e Password'; return; }
+  el('loginMsg').innerText='Verifica credenziali...';
+  jsonp({action:'login',team:t,pass:p}, res=>{
+    if(res?.success){
+      STATE.user = t;
+      STATE.puntiForza = Number(res.puntiForza || 100); 
+      STATE.bonusGol = Number(res.bonusGol || 0); 
+      
+      localStorage.setItem('GafferTeam', t);
+      localStorage.setItem('GafferPass', p);
+
+      el('uiTeam').innerText = t;
+      el('uiForce').innerText = `${STATE.puntiForza}`;
+      el('uiBonusGol').innerText = `${STATE.bonusGol}`;
+      el('connectionStatus').innerText = 'Status: Online';
+      
+      // Mostra l'icona del carrello solo a login avvenuto
+      el('marketBox').classList.remove('hidden');
+      
+      // Se il torneo è sempre sbloccato, mostra il pulsante Torneo dopo il login
+      if(STATE.torneoSbloccato) el('btnViewTorneo')?.classList.remove('hidden');
+
+
+      loadSquads(()=>{
+        loadBonus(); 
+        // Classifica carica i Punti Classifica, aggiorna MercatoUI e verifica lo sblocco del Torneo
+        loadClassifica(); 
+        // 📰 INTEGRAZIONE CORREZIONE: Carica il feed notizie
+        loadNewsFeed(); 
+      });
+      
+      show('page-dashboard');
+      checkPlayedTodayServer(STATE.user);
+      el('loginMsg').innerText = '';
+
+    } else {
+      el('loginMsg').innerText = res?.msg || '❌ Login fallito: verifica i dati.';
+      el('connectionStatus').innerText = 'Status: Offline';
+      localStorage.removeItem('GafferTeam');
+      localStorage.removeItem('GafferPass');
+    }
+  });
+}
+
+/* ================= LOAD SQUADS ================= */
+function loadSquads(callback){
+  jsonp({action:'getSquadre'}, res=>{
+    if(!res?.squadre) return;
+    STATE.squads = res.squadre;
+    STATE.loghi  = res.loghi || {};
+    STATE.infoSquadre = res.infoSquadre || {};
+    renderTeamsPreview();
+    if(typeof callback === 'function') callback();
+  });
+}
+
+function renderTeamsPreview(){
+  const preview = el('teamsGrid'); if(!preview) return;
+  preview.innerHTML = '';
+  STATE.squads.forEach(n => {
+    const info = STATE.infoSquadre[n];
+    const b = document.createElement('div');
+    b.className = 'team-box';
+    const logo = STATE.loghi[n] || '';
+    
+    // Calcola il bonus giornaliero
+    const bonusOggi = STATE.bonusGiornalieri[n] || 0;
+    let forzaBase = info?.forza || 0;
+    let forzaTotale = forzaBase + bonusOggi;
+    let bonusText = bonusOggi > 0 ? `<div style="color:var(--neon-green); font-weight: 800;">Bonus: +${bonusOggi}</div>` : '';
+    
+    b.innerHTML = `<img src="${logo}" alt="${n}" loading="lazy"><div class="team-name">${n}</div>
+                   <div class="team-box-info">
+                       <div><i class="fas fa-bolt" style="color:var(--accent1); font-size: 8px;"></i> Fz: ${forzaTotale}</div>
+                       <div><i class="fas fa-coins" style="color:var(--accent3); font-size: 8px;"></i> Cst: ${info?.costo||'?'}</div>
+                       ${bonusText}
+                   </div>`; 
+    b.onclick = () => selectTeamForNewMatch(n, b);
+    preview.appendChild(b);
+  });
+}
+
+/* ================= PRONOSTICO ================= */
+function setPronostico(e) {
+  // Rimuovi selezione da entrambi
+  el('btnSlotWin')?.classList.remove('btn-primary'); el('btnSlotWin')?.classList.add('btn-ghost');
+  el('btnSlotLose')?.classList.remove('btn-primary'); el('btnSlotLose')?.classList.add('btn-ghost');
+
+  const btn = e.currentTarget;
+  // Aggiungi selezione al pulsante cliccato
+  btn.classList.add('btn-primary');
+  btn.classList.remove('btn-ghost');
+
+  STATE.pronostico = btn.getAttribute('data-pronostico');
+
+  // Se è già stato scelto un avversario, abilita il pulsante GIOCA
+  if (STATE.avversario && !STATE.playedToday && STATE.pronostico) {
+      el('btnPlayMatch').disabled = false;
+  }
+}
+
+
+/* ================= SELECT TEAM ================= */
+function selectTeamForNewMatch(n, box){
+  STATE.selected = n;
+  document.querySelectorAll('#teamsGrid .team-box').forEach(b=>b.classList.remove('selected'));
+  box.classList.add('selected');
+
+  el('selectedMsg').innerText = `✅ Hai scelto: ${n}. Ora cerca un avversario!`;
+  el('matchMyTeam').innerText = n;
+  el('logoMyTeam').src = STATE.loghi[n] || '';
+  el('logoMyTeam').style.display = "block";
+  el('matchAvv').innerText = '?';
+  el('logoAvv').src = '';
+  el('logoAvv').style.display = "none";
+  el('matchResult').classList.add('hidden'); // Nascondi risultati precedenti
+
+  // Resetta stato di gioco e pronostico
+  clearSlot();
+  STATE.pronostico = null; // Forza reset del pronostico
+  el('btnPlayMatch').disabled = true; // Disabilita GIOCA fino a pronostico e avversario
+
+  // Carica i calciatori della squadra selezionata
+  loadCalciatori(n);
+
+  checkPlayedTodayServer(STATE.user);
+
+  show('page-match');
+}
+
+/* ================= NAV ================= */
+el('btnAutoSim')?.addEventListener('click', ()=> { show('page-newmatch'); renderTeamsPreview(); }); // Ricarica preview quando si entra
+el('btnViewClass')?.addEventListener('click', ()=> { loadClassifica(); show('page-classifica'); });
+el('btnViewHistory')?.addEventListener('click', ()=> { loadHistory(); show('page-history'); });
+el('btnViewTorneo')?.addEventListener('click', ()=> { 
+    showTorneoMessage(''); // Pulisce eventuali messaggi precedenti
+    loadChallengeTargets(); 
+    show('page-torneo'); 
+}); // NUOVA NAVIGAZIONE TORNEO
+
+// ✅ RESET CRITICO DELLO STATO SFIDA QUANDO SI TORNA ALLA DASHBOARD
+el('btnBackDashTorneo')?.addEventListener('click', ()=> {
+    STATE.challengeOutcome = null; 
+    el('torneoMsg').innerHTML = '';
+    show('page-dashboard'); 
+});
+
+el('btnBackDash1')?.addEventListener('click', ()=> show('page-dashboard'));
+el('btnBackDash2')?.addEventListener('click', ()=> { clearSlot(); show('page-dashboard'); });
+el('btnBackDash3')?.addEventListener('click', ()=> show('page-dashboard'));
+el('btnBackDash4')?.addEventListener('click', ()=> show('page-dashboard'));
+el('btnDashBack')?.addEventListener('click', ()=>{
+    STATE.user = null;
+    localStorage.removeItem('GafferTeam');
+    localStorage.removeItem('GafferPass');
+    // ✅ RESET ANCHE QUI PER ASSICURARE LA PULIZIA
+    STATE.challengeOutcome = null; 
+    show('page-login');
+    el('connectionStatus').innerText = 'Status: Offline';
+    el('marketBox').classList.add('hidden');
+    el('torneoSbloccatoAnnuncio').classList.add('hidden'); // Nasconde l'annuncio
+});
+
+/* ================= SLOT ================= */
+el('btnStartSlot')?.addEventListener('click', startSlot);
+
+function startSlot(){
+  if(STATE.playedToday){
+    el('dailyMsg').innerText = '⛔ Hai già giocato oggi! Torna domani.';
+    return;
+  }
+  if(!STATE.selected) return el('dailyMsg').innerText = '⛔ Seleziona prima la tua squadra';
+  // Verifica se il calciatore è stato selezionato O se è stata selezionata l'opzione "Nessun calciatore (value="")
+  if(el('calciatoreSelect').value === undefined || el('calciatoreSelect').value === null) return el('dailyMsg').innerText = '⛔ Caricamento calciatori in corso, attendi o ricarica la pagina.';
+  if(!STATE.pronostico) return el('dailyMsg').innerText = '⛔ Scegli prima un pronostico (VITTORIA o SCONFITTA)';
+
+
+  const avversari = STATE.squads.filter(s => s !== STATE.selected);
+  if(avversari.length === 0) return el('dailyMsg').innerText = '⛔ Nessun avversario disponibile';
+
+  const slotEl = el('matchAvv');
+  slotEl.style.color = 'var(--neon-red)';
+  slotEl.innerText = 'RICERCA...';
+  el('logoAvv').src = '';
+  el('btnStartSlot').disabled = true;
+  el('btnPlayMatch').disabled = true;
+  el('matchResult').classList.add('hidden');
+  el('dailyMsg').innerText = '🔍 Ricerca Avversario in corso...';
+  el('btnSlotWin').disabled = true;
+  el('btnSlotLose').disabled = true;
+  el('calciatoreSelect').disabled = true;
+
+
+  setTimeout(()=> {
+    slotEl.style.color = 'var(--navy)';
+    let idx = 0;
+    STATE.slotInterval = setInterval(()=> {
+      idx = (idx + 1) % avversari.length;
+      slotEl.innerText = avversari[idx];
+      el('logoAvv').src = STATE.loghi[avversari[idx]] || '';
+      el('logoAvv').style.display = "block";
+    }, 120);
+
+    STATE.slotTimeout = setTimeout(()=> {
+      clearInterval(STATE.slotInterval);
+      
+      const chosen = avversari[Math.floor(Math.random()*avversari.length)];
+      STATE.avversario = chosen;
+      
+      slotEl.innerText = chosen;
+      el('logoAvv').src = STATE.loghi[chosen] || '';
+      el('logoAvv').style.display = "block";
+      
+      el('btnStartSlot').disabled = true; 
+      // Abilita GIOCA solo se il pronostico è già stato scelto
+      if (!STATE.playedToday && STATE.pronostico) { 
+          el('btnPlayMatch').disabled = false;
+          el('dailyMsg').innerText = 'Avversario Trovato! Premi GIOCA per simulare la partita.';
+      } else {
+           // Mantiene disabilitato il pulsante GIOCA se manca il pronostico, ma permette di sceglierlo
+          el('btnSlotWin').disabled = false;
+          el('btnSlotLose').disabled = false;
+          el('dailyMsg').innerText = 'Avversario Trovato! Completa il pronostico e premi GIOCA.';
+      }
+
+    }, 3000); // 3 secondi di slot
+  }, 700);
+}
+
+function clearSlot(){
+  if(STATE.slotInterval) clearInterval(STATE.slotInterval);
+  if(STATE.slotTimeout) clearTimeout(STATE.slotTimeout);
+  STATE.slotInterval = null; STATE.slotTimeout = null;
+  STATE.avversario = null;
+  
+  // Ripristina UI pronostico
+  STATE.pronostico = null;
+  el('btnSlotWin')?.classList.remove('btn-primary'); el('btnSlotWin')?.classList.add('btn-ghost');
+  el('btnSlotLose')?.classList.remove('btn-primary'); el('btnSlotLose')?.classList.add('btn-ghost');
+  
+  // Ripristina Calciatore
+  const selectEl = el('calciatoreSelect');
+  if(selectEl) selectEl.value = '';
+
+
+  // Ripristina pulsanti e messaggi
+  el('matchAvv').innerText = '?';
+  el('logoAvv').src = '';
+  el('logoAvv').style.display = "none";
+  el('btnPlayMatch').disabled = true;
+  el('btnStartSlot').disabled = STATE.playedToday;
+  el('dailyMsg').innerText = STATE.playedToday ? '⛔ Hai già giocato una partita oggi! Torna domani.' : 'Seleziona un calciatore e un pronostico, poi cerca l\'avversario.';
+  el('btnSlotWin').disabled = STATE.playedToday;
+  el('btnSlotLose').disabled = STATE.playedToday;
+  selectEl.disabled = STATE.playedToday;
+
+}
+
+/* ================= PLAY MATCH ================= */
+el('btnPlayMatch')?.addEventListener('click', () => {
+  if(STATE.playedToday){
+    el('dailyMsg').innerText = '⛔ Hai già giocato oggi! Torna domani.'; 
+    return;
+  }
+  
+  // Verifica se avversario è selezionato e partita preparata
+  if(!STATE.selected || !STATE.avversario) return el('dailyMsg').innerText = '⛔ Avversario non selezionato o partita non preparata'; 
+  
+  // *************** MODIFICA QUI ***************
+  // Prendiamo il valore. Se non è definito o nullo (non dovrebbe accadere
+  // se l'elemento è caricato), mostriamo un messaggio di errore.
+  // **Importante:** Se `calciatoreScelto` è `""` (stringa vuota, ovvero
+  // "Nessun calciatore"), il codice PROSEGUE correttamente,
+  // risolvendo il problema.
+  const calciatoreScelto = el('calciatoreSelect').value;
+  
+  if (calciatoreScelto === undefined || calciatoreScelto === null) {
+      return el('dailyMsg').innerText = '⛔ Caricamento calciatori in corso, attendi o ricarica la pagina.';
+  }
+  // ********************************************
+
+  if(!STATE.pronostico) return el('dailyMsg').innerText = '⛔ Scegli prima un pronostico (VITTORIA o SCONFITTA)';
+  
+  el('matchResult').classList.remove('hidden');
+  el('matchScore').innerText = '⏳';
+  el('matchMeta').innerText = 'Simulazione in corso...';
+  el('btnPlayMatch').disabled = true;
+  el('btnStartSlot').disabled = true;
+  el('btnSlotWin').disabled = true;
+  el('btnSlotLose').disabled = true;
+  el('calciatoreSelect').disabled = true;
+  el('dailyMsg').innerText = 'Simulazione Partita in corso...';
+
+
+  jsonp({
+    action: 'simulaPartita',
+    team: STATE.user,
+    squadra: STATE.selected,
+    pronostico: STATE.pronostico,
+    calciatoreScelto: calciatoreScelto // Invia "" se "Nessun calciatore" è selezionato
+  }, res => {
+
+    if(!res.success) {
+      el('matchScore').innerText = 'X - X';
+      el('matchMeta').innerHTML = '❌ Errore nella simulazione: ' + (res.msg || 'Errore sconosciuto'); 
+      // Riavvia lo stato per consentire un nuovo tentativo se non ha giocato
+      STATE.playedToday = false; 
+      el('btnStartSlot').disabled = false;
+      el('btnPlayMatch').disabled = true; // Deve ricercare un nuovo avversario
+      el('btnSlotWin').disabled = false;
+      el('btnSlotLose').disabled = false;
+      el('calciatoreSelect').disabled = false;
+      return;
+    }
+
+    if(res.success){
+      const oldForce = STATE.puntiForza;
+      const oldBonus = STATE.bonusGol;
+      const oldPoints = STATE.puntiClassifica; // Salva i vecchi punti per l'animazione
+
+      const your = Number(res.tuaGol ?? 0);
+      const avv  = Number(res.avversarioGol ?? 0);
+      el('matchScore').innerText = `${your} - ${avv}`;
+      el('matchScore').className = 'score';
+      if (your > avv) el('matchScore').classList.add('result-win');
+      else if (your < avv) el('matchScore').classList.add('result-lose');
+      else el('matchScore').classList.add('result-draw');
+
+      const forceDelta = res.nuovaForza - oldForce;
+      const forceText = forceDelta > 0 ? `<span style="color:var(--neon-green)">+${forceDelta}</span>` : `<span style="color:var(--neon-red)">${forceDelta}</span>`;
+      const bonusDelta = res.nuovoBonusGol - oldBonus;
+      const bonusText = bonusDelta > 0 ? `<span style="color:var(--accent1)">+${bonusDelta}</span>` : '0';
+      const pointsDelta = res.nuoviPunti - oldPoints;
+      const pointsText = pointsDelta > 0 ? `<span style="color:var(--neon-green)">+${pointsDelta}</span>` : `<span style="color:var(--neon-red)">${pointsDelta}</span>`;
+
+
+      let metaText = res.msg; 
+      
+      el('matchMeta').innerHTML = `
+        <div style="font-weight:900; color:var(--accent3);">RISULTATO: ${res.risultato} | PUNTI CLASSIFICA: ${pointsText}</div>
+        <div style="margin-top:8px;">Forza: ${forceText} | Bonus Gol Permanente: ${bonusText}</div>
+        <div style="margin-top:12px; font-weight:600; color:var(--muted);">${metaText.replace(/\n/g, '<br>')}</div>
+      `;
+      
+      // Aggiornamento dello Stato e UI Dashboard
+      STATE.puntiForza = res.nuovaForza; 
+      STATE.bonusGol = res.nuovoBonusGol;
+      STATE.puntiClassifica = res.nuoviPunti;
+      
+      const uiForceEl = el('uiForce');
+      uiForceEl.innerText = `${STATE.puntiForza}`;
+      if (forceDelta > 0) uiForceEl.classList.add('force-change-positive');
+      else if (forceDelta < 0) uiForceEl.classList.add('force-change-negative');
+      setTimeout(()=> { uiForceEl.classList.remove('force-change-positive','force-change-negative'); }, 1500);
+      
+      el('uiBonusGol').innerText = `${STATE.bonusGol}`;
+      if (bonusDelta > 0) el('uiBonusGol').classList.add('force-change-positive');
+      setTimeout(()=> { el('uiBonusGol').classList.remove('force-change-positive'); }, 1500);
+
+      // Aggiorna anche i punti classifica sulla dashboard
+      const uiPointsEl = el('uiPoints');
+      uiPointsEl.innerText = `${STATE.puntiClassifica}`;
+      if (pointsDelta > 0) uiPointsEl.classList.add('force-change-positive');
+      else if (pointsDelta < 0) uiPointsEl.classList.add('force-change-negative');
+      setTimeout(()=> { uiPointsEl.classList.remove('force-change-positive','force-change-negative'); }, 1500);
+      
+      // LOGICA TORNEO SBLOCCATO (Mantiene l'annuncio se la logica GAS lo manda)
+      if (res.torneoSbloccato) {
+          STATE.torneoSbloccato = true;
+          el('torneoSbloccatoAnnuncio')?.classList.remove('hidden');
+          el('btnViewTorneo')?.classList.remove('hidden'); 
+      }
+
+      STATE.playedToday = true;
+      el('btnShare').classList.remove('hidden');
+      loadClassifica(); 
+      loadHistory(); 
+      el('dailyMsg').innerHTML = '✅ **Partita Completata!** Torna domani.';
+    }
+  });
+});
+
+
+/* ================= CLASSIFICA ================= */
+function loadClassifica() {
+  jsonp({ action: 'getClassifica' }, (res) => {
+    const list = el('classList'); 
+    const uiPointsEl = el('uiPoints');
+    const torneoAnnuncio = el('torneoSbloccatoAnnuncio');
+    const btnTorneo = el('btnViewTorneo'); 
+    
+    if(!list || !uiPointsEl || !torneoAnnuncio || !btnTorneo) return;
+    list.innerHTML = '';
+
+    if (!res || !Array.isArray(res.classifica) || res.classifica.length === 0) { 
+      list.innerHTML = `<div class="class-row">Nessun dato disponibile</div>`; 
+      STATE.puntiClassifica = 0; 
+      uiPointsEl.innerText = '0';
+      aggiornaMercatoUI(0);
+      return; 
+    }
+
+    // 🏆 CORREZIONE: Ordina l'array in JavaScript (soluzione temporanea/di compensazione)
+    res.classifica.sort((a, b) => {
+      // 1. Confronta i Punti (convertiti a numero), Decrescente
+      const puntiA = Number(a.punti || 0);
+      const puntiB = Number(b.punti || 0);
+
+      if (puntiB !== puntiA) {
+        return puntiB - puntiA; // Punti maggiori prima
+      }
+
+      // 2. Se i punti sono pari, confronta la Forza (convertita a numero), Decrescente
+      const forzaA = Number(a.forza || 0);
+      const forzaB = Number(b.forza || 0);
+      
+      return forzaB - forzaA; // Forza maggiore prima
+    });
+    // 🏆 FINE CORREZIONE
+
+    // Nota: Ora l'array `res.classifica` è ordinato correttamente
+    res.classifica.forEach((entry, index) => {
+      const squadra = entry?.team ?? "Sconosciuta";
+      const punti = entry?.punti ?? 0; // Utilizza il campo 'punti'
+      const forza = entry?.forza ?? 0;
+
+      // Aggiorna i punti nella dashboard se la squadra è quella dell'utente
+      if(squadra === STATE.user) {
+         // Aggiorna punti solo se la UI non sta già animando un cambio (eg. post match)
+         if(!uiPointsEl.classList.contains('force-change-positive') && !uiPointsEl.classList.contains('force-change-negative')) {
+            STATE.puntiClassifica = punti;
+            uiPointsEl.innerText = `${punti}`;
+         } else {
+             STATE.puntiClassifica = punti; // Aggiorna lo stato, anche se la UI è ritardata
+         }
+
+         aggiornaMercatoUI(punti); 
+         
+         // LOGICA TORNEO: Mostra l'annuncio se i punti sono >= 500
+         if (punti >= 500) {
+            torneoAnnuncio.classList.remove('hidden');
+         } else if (STATE.torneoSbloccato) { // Se il torneo è sbloccato di default ma i punti sono bassi, nascondo l'annuncio.
+            torneoAnnuncio.classList.add('hidden');
+         }
+         
+      }
+      
+      const row = document.createElement('div');
+      row.className = 'class-row';
+      const rank = index + 1; 
+
+      let rankClass = '';
+      if (rank === 1) rankClass = 'first-place';
+      else if (rank === 2) rankClass = 'second-place';
+      else if (rank === 3) rankClass = 'third-place';
+      
+      // Aggiunge la classe self-row dopo aver calcolato la posizione
+      if (squadra === STATE.user) row.classList.add('self-row');
+
+      row.innerHTML = `
+        <div class="rank ${rankClass}">${rank}.</div>
+        <div class="team-name-cl ${rankClass}">${squadra}</div>
+        <div class="points"><strong>${punti}</strong> pts | F: ${forza}</div>
+      `;
+      list.appendChild(row);
+    });
+  });
+}
+
+
+/* ================= NEWS FEED (NUOVA FUNZIONE CORRETTA) ================= */
+function loadNewsFeed() {
+    const newsListEl = el('newsList'); 
+    if (!newsListEl) return;
+
+    // Utilizza google.script.run (o jsonp come stai facendo)
+    jsonp({ action: 'getDailyNewsFeed' }, (res) => {
+        
+        // Rimuove tutte le notizie dinamiche precedenti
+        document.querySelectorAll('.dynamic-news').forEach(e => e.remove());
+        
+        // 🚨 CAMBIO CHIAVE 1: Controlla res.newsFeed, non res.news
+        const newsArray = res.newsFeed; 
+
+        // 🚨 CAMBIO CHIAVE 2: Se l'array non è valido o vuoto, esci
+        if (!res.success || !Array.isArray(newsArray) || newsArray.length === 0) { 
+            // 💡 MESSAGGIO UTILE: Se il feed è vuoto, mostriamo un messaggio
+            newsListEl.insertAdjacentHTML('afterbegin', '<li class="dynamic-news" style="color:var(--muted);">Nessuna news recente.</li>');
+            return; 
+        }
+
+        let html = '';
+        newsArray.forEach(item => {
+            
+            // 🚨 CAMBIO CHIAVE 3: Usa item.ora e item.messaggio inviati dal GAS
+            const ora = item.ora; 
+            const messaggio = item.messaggio;
+
+            html += `
+                <li class="dynamic-news">
+                    <i class="fas fa-circle" style="font-size: 5px; color:var(--neon-green); margin-right: 8px;"></i> 
+                    <span style="color:var(--neon-green)">[${ora}]</span> ${messaggio}
+                </li>
+            `;
+        });
+
+        // Inserisce le nuove notizie all'inizio della lista
+        // (Dato che il GAS le ha già ordinate, non serve riordinare qui)
+        newsListEl.insertAdjacentHTML('afterbegin', html);
+    });
+}
+/* ================= FINE NEWS FEED ================= */
+
+
+
+/* ================= STORICO PARTITE ================= */
+function loadHistory() {
+    jsonp({ action: 'getStoricoPartite', team: STATE.user }, (res) => {
+        const list = el('historyList'); 
+        if(!list) return;
+        list.innerHTML = '';
+        
+        if (!res.success || !Array.isArray(res.storico) || res.storico.length === 0) { 
+            list.innerHTML = `<div class="small" style="color:var(--muted); padding: 10px;">Nessuna partita giocata.</div>`; 
+            return; 
+        }
+
+        const items = res.storico.slice(0, 20); 
+
+        items.forEach((match) => {
+            const row = document.createElement('div');
+            row.className = 'history-row';
+            
+            let resultColor = '#ffd166'; 
+            let dettaglio = '';
+            let scoreText = '';
+            
+            if (match.squadra === 'MERCATO') {
+                dettaglio = '💸 Mercato Acquistato'; 
+                const effetto = Number(match.punti);
+                resultColor = effetto >= 0 ? 'var(--neon-green)' : 'var(--neon-red)';
+                scoreText = `${effetto} Pts`;
+            } else {
+                const [tuaGol, avvGol] = match.risultato.split('-').map(Number);
+                if (tuaGol > avvGol) resultColor = 'var(--neon-green)';
+                else if (tuaGol < avvGol) resultColor = 'var(--neon-red)';
+                dettaglio = `${match.squadra} ${match.risultato} ${match.avversario}`;
+                scoreText = `${match.punti} Pts`;
+            }
+            
+            // Aggiunge il bonus calciatore
+            if (match.bonusCalciatore > 0) {
+                 dettaglio += ' <i class="fas fa-star" style="color:var(--accent3)"></i>';
+            }
+
+
+            row.innerHTML = `
+                <div>${match.data}</div>
+                <div><span style="font-weight:700">${dettaglio}</span></div>
+                <div class="history-result" style="color:${resultColor}">${scoreText}</div>
+            `;
+            list.appendChild(row);
+        });
+    });
+}
+
+
+/* ================= SHARE WHATSAPP ================= */
+el('btnShare')?.addEventListener('click', ()=>{
+  if(!STATE.selected || !STATE.avversario) return;
+  const matchScore = el('matchScore').innerText;
+  const matchResult = el('matchMeta').innerText.split('RISULTATO: ')[1].split(' | ')[0];
+
+  const txt = `Ho giocato su THE GAFFER!
+🏆 Team: ${STATE.user}
+🆚 Squadra Scelta: ${STATE.selected}
+⚽ Risultato: ${matchScore} vs ${STATE.avversario}
+🏅 Esito: ${matchResult}
+
+Guarda la mia posizione in classifica!`;
+
+  const url = `https://wa.me/?text=${encodeURIComponent(txt)}`;
+  window.open(url, '_blank');
+});
+
+/* ================= PULSANTE CLASSIFICA POST MATCH ================= */
+// Lasciato qui, ma l'evento DOMContentLoaded è stato spostato per avvolgere la funzione init
+  const btnClassifica = el('btnClassifica');
+  if (btnClassifica) {
+    btnClassifica.addEventListener('click', () => {
+      loadClassifica();
+      show('page-classifica');
+    });
+  }
+/* ================= SHARE WHATSAPP SFIDA (NUOVO) ================= */
+function shareChallengeWhatsApp(){
+  const target = el('challengeTarget').value; // Nome del team avversario selezionato
+  
+  if(!STATE.user || !target) {
+      showTorneoMessage('❌ Seleziona prima un avversario da sfidare!', false);
+      return;
+  }
+  
+  // Costruzione del messaggio come richiesto
+  const txt = `🏆 Ciao ${target}, il mio team, ${STATE.user}, Ti lancia una sfida, accetti 🏋️ ? Entra nell'app e sfidiamoci!🔥`;
+
+  // Codifica per URL
+  const url = `https://wa.me/?text=${encodeURIComponent(txt)}`;
+  
+  // Apri il link di WhatsApp
+  window.open(url, '_blank');
+}
+
+// ⚠️ NUOVO LISTENER: Collega la funzione al pulsante
+el('btnShareChallenge')?.addEventListener('click', shareChallengeWhatsApp);
+/* ================= GESTIONE ABILITAZIONE PULSANTE WHATSAPP SFIDA (NUOVO) ================= */
+el('challengeTarget')?.addEventListener('change', (e) => {
+    const btnShare = el('btnShareChallenge');
+    const targetValue = e.target.value;
+    
+    // Abilita il pulsante solo se è stato selezionato un team valido
+    if (targetValue && targetValue !== '') {
+        btnShare.disabled = false;
+    } else {
+        btnShare.disabled = true;
+    }
+});
+
+
+</script>
+
+
+</body>
+</html>
